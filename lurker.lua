@@ -209,14 +209,15 @@ end
 
 function lurker.getchanged()
   local function fn(f)
-    return f:match("%.lua$") and lurker.files[f] ~= lastmodified(f)
+    local extensionMatch = f:match("%.lua$") or f:match("%.fnl$")
+    return extensionMatch and lurker.files[f] ~= lastmodified(f)
   end
   return lume.filter(lurker.listdir(lurker.path, true, true), fn)
 end
 
 
 function lurker.modname(f)
-  return (f:gsub("%.lua$", ""):gsub("[/\\]", "."))
+  return (f:gsub("%.lua$", ""):gsub("%.fnl$", ""):gsub("[/\\]", "."))
 end
 
 
