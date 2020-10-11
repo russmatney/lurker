@@ -24,6 +24,16 @@ end
 
 local function lastmodified(path)
     local info = love.filesystem.getInfo(path, "file")
+    if info == nil then
+      print('File does not exist')
+      return nil
+    end
+
+    if info.modtime == nil then
+      print('Could not determine file modification date.')
+      return nil
+    end
+
     return info.modtime
 end
 
